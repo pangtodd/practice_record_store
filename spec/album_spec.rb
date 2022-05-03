@@ -37,9 +37,17 @@ describe 'Album' do
     it("finds an album by id")do
     album = Album.new("Giant Steps", nil)
     album.save()
-    Album2 = Album.new("Blue", nil)
+    album2 = Album.new("Blue", nil)
     album2.save()
     expect(Album.find(album.id)).to eq(album)
+    end
+  end
+  desrcibe('#update')do
+    it("updates an album by id")do
+      album = Album.new("Giant Steps", nil)
+      album.save()
+      album.update("A Love Supreme")
+      expect(album.name).to eq("A Love Supreme")
     end
   end
 end
