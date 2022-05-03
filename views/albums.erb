@@ -1,0 +1,15 @@
+<h1>All Sales Vinyl</h1>
+
+<h3>Available Records>
+
+<% If @albums.any?%>
+  <ul>
+    <@albums.each do |album|%>
+      <li><%= album.name%></li>
+    <% end %>
+  </ul>
+<% else %>
+  <p> We ain't got nothing for you, man.</p>
+<% end %>
+
+<a href="/albums/new">add a new album</a>
