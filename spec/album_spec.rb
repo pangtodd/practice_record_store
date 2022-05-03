@@ -42,12 +42,22 @@ describe 'Album' do
     expect(Album.find(album.id)).to eq(album)
     end
   end
-  desrcibe('#update')do
+  describe('#update')do
     it("updates an album by id")do
       album = Album.new("Giant Steps", nil)
       album.save()
       album.update("A Love Supreme")
       expect(album.name).to eq("A Love Supreme")
+    end
+  end
+  describe('#delete')do
+    it("deletes and album by id")do
+      album = Album.new("Giant Steps", nil)
+      album.save()
+      album2 = Album.new("Blue",nil)
+      album.save()
+      album.delete()
+      expect(Album.all).to eq([album2])
     end
   end
 end
