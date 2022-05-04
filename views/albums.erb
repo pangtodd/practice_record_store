@@ -1,15 +1,25 @@
 <h1>All Sales Vinyl</h1>
 
-<h3>Available Records>
+<h3>Available Records</h3>
 
-<% If @albums.any?%>
+<% if @albums.any? %>
   <ul>
-    <@albums.each do |album|%>
+    <% @albums.each do |album| %>
       <li><%= album.name%></li>
     <% end %>
   </ul>
 <% else %>
   <p> We ain't got nothing for you, man.</p>
+  
 <% end %>
 
-<a href="/albums/new">add a new album</a>
+<form action="/albums">
+  <div class="form-group">
+    <label for="search">Search</label>
+    <input id="search" name="search" class="form-control" type="text">
+  </div>
+  <button type="submit" class="btn">Search!</button>
+</form>
+
+
+<a href="/albums/new">click here to add a new album</a>

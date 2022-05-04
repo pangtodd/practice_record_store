@@ -52,10 +52,11 @@ describe 'Album' do
   end
   describe('#delete')do
     it("deletes and album by id")do
+      Album.clear()
       album = Album.new("Giant Steps", nil)
       album.save()
       album2 = Album.new("Blue",nil)
-      album.save()
+      album2.save()
       album.delete()
       expect(Album.all).to eq([album2])
     end

@@ -1,15 +1,37 @@
-require ('sinatra')
+require('sinatra')
+require('sinatra/reloader')
+require('./lib/album')
+require('pry')
+also_reload('lib/**/*.rb')
 
-get('/') do
-  "this will be out home page. '/' is always the root route in a Sinatra Application"
+get('/test')do
+  @something = "this is a variable, dum-dum."
+  erb(:whatever)
 end
 
-get('/alubms') do
-  "this route will show us a list of all albums"
+get('/') do
+  @albums = Album.all
+  erb(:albums)
+  # "this will be out home page. '/' is always the root route in a Sinatra Application"
+end
+
+get('/albums') do
+  @albums = Album.all
+  erb(:albums)
+  # "this route will show us a list of all albums"
+end
+
+post('/albums')do
+  name = params[:album_name]
+  album = Album.new(name, nil)
+  album.save()
+  @albums = Album.all()
+  erb(:albums)
 end
 
 get('/albums/new') do
-  "this will take us to a page with a form for adding a new album"
+  erb(:new_album)
+  #"this will take us to a page with a form for adding a new album"
 end
 
 get('/albums/new') do
@@ -17,7 +39,9 @@ get('/albums/new') do
 end
 
 get('/albums/:id')do
-  "this route will show a specific album based on its ID. The value of ID here is #{params[:id]}"
+  @album = Album.find(params[:id].to_i())
+  erb(:album)
+  #"this route will show a specific album based on its ID. The value of ID here is #{params[:id]}"
 end
 
 post('/albums') do
@@ -29,10 +53,10 @@ get('/albums/:id/edit') do
 end
 
 patch('/albums/:id') do
-  "this route will update an album. We can't reach it with a URL. In a future lesson, we will use a form that specifices a PATCH action to reach this route"
+  #"this route will update an album. We can't reach it with a URL. In a future lesson, we will use a form that specifices a PATCH action to reach this route"
 end
 
-delete('/albums/:id' do)
+delete('/albums/:id') do
   "this route will delete an album. We can't reach it with a URL. In a future lesson, we will use a delete button that specifies a DELETE action to reach this route."
 end
 
