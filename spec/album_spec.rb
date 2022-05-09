@@ -2,6 +2,10 @@ require 'rspec'
 require 'Album'
 
 describe 'Album' do
+  before(:each)do
+    Album.clear()
+  end
+
   describe('.all')do
     it("returns an empty array when there are no albums.") do
     expect(Album.all).to eq([])
@@ -59,6 +63,17 @@ describe 'Album' do
       album2.save()
       album.delete()
       expect(Album.all).to eq([album2])
+    end
+  end
+  describe('#songs')do
+    it("returns an album's songs")do
+      album = Album.new("Giant Steps", nil)
+      album.save()
+      song = Song.new("Naima", album.id, nil)
+      song.save()
+      song2 = Song.new("Cousin Mary", album.id, nil)
+      song2.save()
+      expect(album.songs).to eq([song, song2])
     end
   end
 end

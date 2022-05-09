@@ -80,7 +80,7 @@ get('/albums/:id/songs/:song_id') do
 end
 
 patch('/albums/:id/songs/:song_id')do
-  @album = Album.find(param[:id].to_i())
+  @album = Album.find(params[:id].to_i())
   song = Song.find(params[:song_id].to_i())
   song.update(params[:name], @album.id)
   erb(:album)
