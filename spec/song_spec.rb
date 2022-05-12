@@ -44,15 +44,15 @@ describe '#Song' do
     end
   end
 
-  # describe('.find')do
-  #   it("finds a song using id")do
-  #   song = Song.new("Giant Steps", @album.id, nil)
-  #   song.save()
-  #   song2 = Song.new("Naima", @album.id, nil)
-  #   song2.save()
-  #   expect(Song.find(song.id)).to eq(song)
-  #   end
-  # end
+  describe('.find')do
+    it("finds a song using id")do
+    song = Song.new({:name =>"Giant Steps", :album_id => @album.id, :id=> nil})
+    song.save()
+    song2 = Song.new({:name => "Naima", :album_id => @album.id, :id => nil})
+    song2.save()
+    expect(Song.find(song.id)).to eq(song)
+    end
+  end
 
   # describe('#update')do
   #   it("updates a song by id")do
