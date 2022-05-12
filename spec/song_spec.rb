@@ -15,15 +15,15 @@ describe '#Song' do
     end
   end
 
-  # describe('.all') do
-  #   it("returns a lit of all songs")do
-  #     song= Song.new("Giant Steps", @album.id, nil)
-  #     song.save
-  #     song2 = Song.new("Naima", @album.id, nil)
-  #     song2.save
-  #     expect(Song.all).to eq([song, song2])
-  #   end
-  # end
+  describe('.all') do
+    it("returns a lit of all songs")do
+      song= Song.new({:name =>"Giant Steps",:album_id => @album.id, :id => nil})
+      song.save
+      song2 = Song.new({:name =>"Naima", :album_id => @album.id, :id => nil})
+      song2.save
+      expect(Song.all).to eq([song, song2])
+    end
+  end
 
   # describe('.clear')do
   #   it("clears all songs")do

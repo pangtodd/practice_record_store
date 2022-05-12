@@ -13,43 +13,52 @@ class Song
   end
 
   def self.all
-    @@songs.values
-  end
-
-  def save
-    @@songs[self.id] = Song.new(self.name, self.album_id, self.id)
-  end
-
-  def self.find(id)
-    @@songs[id]
-  end
-
-  def update(name, album_id)
-    self.name = name
-    self.album_id = album_id
-    @@songs[self.id]= Song.new(self.name, self.album_id, self.id)
-  end
-
-  def delete
-    @@songs.delete(self.id)
-  end
-
-  def self.clear
-    @@songs = {}
-  end
-
-  def self.find_by_album(alb_id)
+    returned_songs = DB.exec("SELECT * FROM songs;")
     songs = []
-    @@songs.values.each do |song|
-      if song.album_id == alb_id
-        songs.push(song)
-      end
+    returned_songs.each() do |song|
+      name = song.fetch("name")
+      album_id = song.fetch("album_id").to_i
+      id = song.fetch("id").to_i
+      songs.push(Song.new({:name => name, :album_id => album_id, :id => id}))
     end
     songs
   end
 
-  def album
-    Album.find(self.album_id)
+  def save
+    result = DB.exec("INSERT INTO songs (name, album_id) VALUES ('#{@name}', #{@album_id}) RETURNING id;")
+    @id = result.first().fetch("id").to_i
   end
+
+#   def self.find(id)
+#     @@songs[id]
+#   end
+
+#   def update(name, album_id)
+#     self.name = name
+#     self.album_id = album_id
+#     @@songs[self.id]= Song.new(self.name, self.album_id, self.id)
+#   end
+
+#   def delete
+#     @@songs.delete(self.id)
+#   end
+
+#   def self.clear
+#     @@songs = {}
+#   end
+
+#   def self.find_by_album(alb_id)
+#     songs = []
+#     @@songs.values.each do |song|
+#       if song.album_id == alb_id
+#         songs.push(song)
+#       end
+#     end
+#     songs
+#   end
+
+#   def album
+#     Album.find(self.album_id)
+#   end
 
 end
