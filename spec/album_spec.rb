@@ -9,15 +9,15 @@ describe 'Album' do
     expect(Album.all).to eq([])
     end
   end
-  # describe('#save')do
-  #   it("saves and album")do
-  #   album = Album.new("Giant Steps", nil)
-  #   album.save()
-  #   album2 = Album.new("Blue", nil)
-  #   album2.save()
-  #   expect(Album.all).to eq([album, album2])
-  #   end
-  # end
+  describe('#save')do
+    it("saves and album")do
+    album = Album.new({:name =>"Giant Steps",:id => nil})
+    album.save()
+    album2 = Album.new({:name => "Blue", :id => nil})
+    album2.save()
+    expect(Album.all).to eq([album, album2])
+    end
+  end
   describe('#==')do
     it ("is the same album if it has the same attributes as another album")do 
     album = Album.new({:name => "Blue", :id =>nil})
