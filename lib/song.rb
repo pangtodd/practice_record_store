@@ -2,18 +2,14 @@ class Song
   attr_reader :id
   attr_accessor :name, :album_id
 
-  @@songs = {}
-  @@total_rows = 0
-
-  def initialize(name, album_id, id)
-    @name= name
-    @album_id=album_id
-    @id = id || @@total_rows += 1
+  def initialize(attributes)
+    @name= attributes.fetch(:name)
+    @album_id=attributes.fetch(:album_id)
+    @id = attributes.fetch(:id)
   end
 
   def ==(song_to_compare)
     (self.name() == song_to_compare.name()) && (self.album_id() == song_to_compare.album_id())
-    #I'm confused about this one)
   end
 
   def self.all
