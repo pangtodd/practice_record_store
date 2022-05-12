@@ -47,9 +47,9 @@ class Song
     DB.exec("DELETE FROM songs WHERE id =#{@id};")
   end
 
-#   def self.clear
-#     @@songs = {}
-#   end
+  def self.clear
+    DB.exec("DELETE FROM songs *;")
+  end
 
 #   def self.find_by_album(alb_id)
 #     songs = []

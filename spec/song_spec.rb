@@ -25,16 +25,16 @@ describe '#Song' do
     end
   end
 
-  # describe('.clear')do
-  #   it("clears all songs")do
-  #     song= Song.new("Giant Steps", @album.id, nil)
-  #     song.save()
-  #     song2= Song.new("Naima",@album.id, nil)
-  #     song2.save()
-  #     Song.clear()
-  #     expect(Song.all).to eq([])
-  #   end
-  # end
+  describe('.clear')do
+    it("clears all songs")do
+      song= Song.new({:name=>"Giant Steps",:album_id=>@album.id,:id=>nil})
+      song.save()
+      song2= Song.new({:name=>"Naima",:album_id=>@album.id,:id=>nil})
+      song2.save()
+      Song.clear()
+      expect(Song.all).to eq([])
+    end
+  end
 
   describe('#save')do
     it("saves a song/bang a gong/get it on")do
