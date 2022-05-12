@@ -25,16 +25,16 @@ describe 'Album' do
     expect(album).to eq(album2)
     end
   end
-  # describe('.clear')do
-  #   it("clears all albums")do
-  #     album = Album.new("Giant Steps", nil)
-  #     album.save()
-  #     album2 = Album.new("Blue", nil)
-  #     album2.save()
-  #     Album.clear()
-  #     expect(Album.all).to eq([])
-  #   end
-  # end
+  describe('.clear')do
+    it("clears all albums")do
+      album = Album.new({:name => "Giant Steps", :id => nil})
+      album.save()
+      album2 = Album.new({:name =>"Blue", :id => nil})
+      album2.save()
+      Album.clear()
+      expect(Album.all).to eq([])
+    end
+  end
   # describe('.find')do
   #   it("finds an album by id")do
   #   album = Album.new("Giant Steps", nil)

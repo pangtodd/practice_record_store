@@ -12,7 +12,7 @@ class Album
   end
 
   def self.all
-    returned_albums = DB exec("SELECT * FROM albums;")
+    returned_albums = DB.exec("SELECT * FROM albums;")
     albums = []
     returned_albums.each() do |album|
       name = album.fetch("name")
@@ -28,7 +28,7 @@ class Album
   end
 
   def self.clear
-    DEB.exec("DELTE FROM albums *;")
+    DB.exec("DELETE FROM albums *;")
   end
 
   def self.find(id)
