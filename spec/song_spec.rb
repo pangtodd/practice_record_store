@@ -54,14 +54,14 @@ describe '#Song' do
     end
   end
 
-  # describe('#update')do
-  #   it("updates a song by id")do
-  #     song= Song.new("Naima", @album.id, nil)
-  #     song.save()
-  #     song.update("Mr. P.C.", @album.id)
-  #     expect(song.name).to eq("Mr. P.C.")
-  #   end
-  # end
+  describe('#update')do
+    it("updates a song by id")do
+      song= Song.new({:name=>"Naima",:album_id => @album.id,:id => nil})
+      song.save()
+      song.update("Mr. P.C.", @album.id)
+      expect(song.name).to eq("Mr. P.C.")
+    end
+  end
 
   # describe('#delete') do
   #   it("deletes a song by id") do
