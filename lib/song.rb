@@ -43,9 +43,9 @@ class Song
     DB.exec("UPDATE songs SET name = '#{@name}', album_id= #{@album_id} WHERE id = #{id};")
   end
 
-#   def delete
-#      DB.exec("DELETE FROM songs WHERE id =#{@id};")
-#   end
+  def delete
+    DB.exec("DELETE FROM songs WHERE id =#{@id};")
+  end
 
 #   def self.clear
 #     @@songs = {}
