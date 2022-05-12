@@ -86,13 +86,13 @@ describe '#Song' do
     end
   end
 
-  # describe('#album')do
-  #   it("finds the album a song belongs to")do
-  #     song = Song.new("Naima", @album.id, nil)
-  #     song.save()
-  #     expect(song.album()).to eq(@album)
-  #   end
-  # end
+  describe('#album')do
+    it("finds the album a song belongs to")do
+      song = Song.new({:name=>"Naima",:album_id=> @album.id,:id=> nil})
+      song.save()
+      expect(song.album()).to eq(@album)
+    end
+  end
 end
 
 

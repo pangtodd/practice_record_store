@@ -62,8 +62,8 @@ class Song
     songs
   end
 
-#   def album
-#     Album.find(self.album_id)
-#   end
+  def album
+    Album.find(@album_id)
+  end
 
 end
