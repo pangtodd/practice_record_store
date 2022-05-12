@@ -52,17 +52,17 @@ describe 'Album' do
       expect(album.name).to eq("A Love Supreme")
     end
   end
-  # describe('#delete')do
-  #   it("deletes and album by id")do
-  #     Album.clear()
-  #     album = Album.new("Giant Steps", nil)
-  #     album.save()
-  #     album2 = Album.new("Blue",nil)
-  #     album2.save()
-  #     album.delete()
-  #     expect(Album.all).to eq([album2])
-  #   end
-  # end
+  describe('#delete')do
+    it("deletes and album by id")do
+      Album.clear()
+      album = Album.new({:name => "Giant Steps", :id => nil})
+      album.save()
+      album2 = Album.new({:name => "Blue",:id => nil})
+      album2.save()
+      album.delete()
+      expect(Album.all).to eq([album2])
+    end
+  end
   # describe('#songs')do
   #   it("returns an album's songs")do
   #     album = Album.new("Giant Steps", nil)
