@@ -34,4 +34,13 @@ describe 'Artist' do
       expect(Artist.all).to eq([])
     end
   end
+  describe('.find')do
+    it("finds an artist by id")do
+    artist = Artist.new({:name => "Kool Moe Dee", :id=>nil})
+    artist.save()
+    artist2 = Artist.new({:name=>"Def Jef", :id=>nil})
+    artist2.save()
+    expect(Artist.find(artist2.id)).to eq(artist2)
+    end
+  end
 end

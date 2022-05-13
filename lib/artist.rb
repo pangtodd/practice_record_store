@@ -1,4 +1,3 @@
-
 class Artist
   attr_reader :id
   attr_accessor :name
@@ -31,6 +30,17 @@ class Artist
   def self.clear
     DB.exec("DELETE FROM artists *;")
   end
-end
 
-  
+
+  def self.find(id)
+    artist = DB.exec("SELECT * FROM artists WHERE id = #{id};").first
+    if artist != nil
+      name = artist.fetch("name")
+      id = artist.fetch("id").to_i
+      Artist.new({:name=>name, :id=>id})
+    else
+      nil
+    end
+  end
+
+end
