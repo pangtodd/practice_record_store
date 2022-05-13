@@ -8,9 +8,9 @@ class Artist
     @id = attributes.fetch(:id)
   end
 
-  # def ==(artist_to_compare)
-  #   self.name() == arist_to_compare.name()
-  # end
+  def ==(artist_to_compare)
+    self.name() == artist_to_compare.name()
+  end
   
   def self.all
     returned_artists = DB.exec("SELECT * FROM artists;")
@@ -21,6 +21,11 @@ class Artist
       artists.push(Artist.new({:name=>name, :id=> id}))
     end
     artists
+  end
+
+  def save
+    result = DB.exec("INSERT INTO artists (name) VALUES ('#{name}') RETURNING id;")
+    @id = result.first().fetch("id").to_i
   end
 end
 
