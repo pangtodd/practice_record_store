@@ -1,0 +1,27 @@
+
+class Artist
+  attr_reader :id
+  attr_accessor :name
+
+  def initialize(attributes)
+    @name = attributes.fetch(:name)
+    @id = attributes.fetch(:id)
+  end
+
+  # def ==(artist_to_compare)
+  #   self.name() == arist_to_compare.name()
+  # end
+  
+  def self.all
+    returned_artists = DB.exec("SELECT * FROM artists;")
+    artists = []
+    returned_artists.each() do |artist|
+      name = artist.fetch("name")
+      id = artist.fetch("id").to_i
+      artists.push(Artist.new({:name=>name, :id=> id}))
+    end
+    artists
+  end
+end
+
+  
