@@ -43,4 +43,10 @@ class Artist
     end
   end
 
+  def update(name)
+    @name = name
+    DB.exec("UPDATE artists SET name = '#{@name}' WHERE id = #{@id};")
+  end
+
+
 end

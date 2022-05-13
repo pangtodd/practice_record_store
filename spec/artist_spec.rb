@@ -43,4 +43,13 @@ describe 'Artist' do
     expect(Artist.find(artist2.id)).to eq(artist2)
     end
   end
+  describe('#update')do
+    it("updates an artist by id")do
+      artist = Artist.new({:name=>'Old Dirty Bastard', :id=>nil})
+      artist.save()
+      artist.update("Big Baby Jesus")
+      expect(artist.name).to eq("Big Baby Jesus")
+    end
+  end
+
 end
