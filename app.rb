@@ -2,8 +2,12 @@ require('sinatra')
 require('sinatra/reloader')
 require('./lib/album')
 require('./lib/song')
+require('./lib/artist')
 require('pry')
+require('pg')
 also_reload('lib/**/*.rb')
+
+DB = PG.connect({:dbname => "record_store"})
 
 get('/test')do
   @something = "this is a variable, dum-dum."
@@ -13,42 +17,60 @@ end
 get('/') do
   @albums = Album.all
   erb(:albums)
-  # "this will be out home page. '/' is always the root route in a Sinatra Application"
 end
 
 get('/albums') do
   @albums = Album.all
   erb(:albums)
-  # "this route will show us a list of all albums"
+end
+
+get('/artists')do
+  @artists = Artist.all
+  erb(:artists)
 end
 
 post('/albums')do
   name = params[:album_name]
-  album = Album.new(name, nil)
+  album = Album.new({:name=>name, :id=>nil})
   album.save()
   @albums = Album.all()
   erb(:albums)
 end
 
-get('/albums/new') do
-  erb(:new_album)
-  #"this will take us to a page with a form for adding a new album"
+post('/artists')do
+  name = params[:artist_name]
+  artist = Artist.new({:name=> name, :id=>nil})
+  artist.save()
+  @artists = Artists.all()
+  erb(:artists)
 end
 
 get('/albums/new') do
-  "this will take us to a page with a form for adding a new album."
+  erb(:new_album)
+end
+
+get('/artists/new')do
+  erb(:new_artist)
 end
 
 get('/albums/:id')do
   @album = Album.find(params[:id].to_i())
   erb(:album)
-  #"this route will show a specific album based on its ID. The value of ID here is #{params[:id]}"
+end
+
+get('/artists/:id')do
+  @artist = Artist.find(params[:id].to_i())
+  erb(:artist)
 end
 
 get('/albums/:id/edit') do
   @album = Album.find(params[:id].to_i())
   erb(:edit_album)
-  #"this will take us to a page with a form for updating an album with an ID of #{params[:id]}."
+end
+
+get('/artists/:id/edit') do
+  @artist = Artist.find(params[:id].to_i())
+  erb(:edit_artist)
 end
 
 patch('/albums/:id') do
@@ -59,6 +81,13 @@ patch('/albums/:id') do
   #"this route will update an album. We can't reach it with a URL. In a future lesson, we will use a form that specifices a PATCH action to reach this route"
 end
 
+patch('/artists/:id')do
+  @artist = Artist.find(params[:id].to_i())
+  @artist.update(params[:name])
+  @artists = Artists.all
+  erb(:artists)
+end
+
 delete('/albums/:id') do
   @album = Album.find(params[:id].to_i())
   @album.delete()
@@ -67,9 +96,16 @@ delete('/albums/:id') do
   #"this route will delete an album. We can't reach it with a URL. In a future lesson, we will use a delete button that specifies a DELETE action to reach this route."
 end
 
+delete('/artists/:id')do
+  @artist = Artist.find(params[:id].to_i())
+  @artist.delete()
+  @artists = Artist.all
+  erb(:artists)
+end
+
 post('/albums/:id/songs')do
   @album = Album.find(params[:id].to_i())
-  song = Song.new(params[:song_name], @album.id, nil)
+  song = Song.new({:name=>params[:song_name], :album_id=>@album.id, :id=>nil})
   song.save()
   erb(:album)
 end

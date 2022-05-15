@@ -6,23 +6,23 @@ describe 'Album' do
 
   describe('.all')do
     it("returns an empty array when there are no albums.") do
-    expect(Album.all).to eq([])
+      expect(Album.all).to eq([])
     end
   end
   describe('#save')do
     it("saves and album")do
-    album = Album.new({:name =>"Giant Steps",:id => nil})
-    album.save()
-    album2 = Album.new({:name => "Blue", :id => nil})
-    album2.save()
-    expect(Album.all).to eq([album, album2])
+      album = Album.new({:name =>"Giant Steps",:id => nil})
+      album.save()
+      album2 = Album.new({:name => "Blue", :id => nil})
+      album2.save()
+      expect(Album.all).to eq([album, album2])
     end
   end
   describe('#==')do
     it ("is the same album if it has the same attributes as another album")do 
-    album = Album.new({:name => "Blue", :id =>nil})
-    album2 = Album.new({:name => "Blue", :id =>nil})
-    expect(album).to eq(album2)
+      album = Album.new({:name => "Blue", :id =>nil})
+      album2 = Album.new({:name => "Blue", :id =>nil})
+      expect(album).to eq(album2)
     end
   end
   describe('.clear')do
@@ -61,6 +61,16 @@ describe 'Album' do
       album2.save()
       album.delete()
       expect(Album.all).to eq([album2])
+    end
+  end
+  describe('#delete')do
+    it("deletes all songs belonging to a deleted album")do
+      album = Album.new({:name => "A Love Supreme", :id => nil})
+      album.save()
+      song = Song.new({:name => "Naima", :album_id => album.id, :id => nil})
+      song.save()
+      album.delete()
+      expect(Song.find(song.id)).to eq(nil)
     end
   end
   # describe('#songs')do

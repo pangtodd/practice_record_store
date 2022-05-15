@@ -33,21 +33,26 @@ class Album
 
   def self.find(id)
     album = DB.exec("SELECT * FROM albums WHERE id = #{id};").first
-    name = album.fetch("name")
-    id = album.fetch("id").to_i
-    Album.new({:name => name, :id => id})
+    if album
+      name = album.fetch("name")
+      id = album.fetch("id").to_i
+      Album.new({:name => name, :id => id})
+    else
+      nil
+    end
   end
 
   def update(name)
     @name = name
-    DB.exec("UPDATE albums SET name = '#{@name}' WHERE id = #{@id}")
+    DB.exec("UPDATE albums SET name = '#{@name}' WHERE id = #{@id};")
   end
 
   def delete
     DB.exec("DELETE FROM albums WHERE id = #{@id};")
+    DB.exec("DELETE FROM songs WHERE album_id = #{@id};")
   end
 
-  # def songs
-  #   Song.find_by_album(self.id)
-  # end
+  def songs
+    Song.find_by_album(self.id)
+  end
 end
