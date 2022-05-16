@@ -41,7 +41,7 @@ post('/artists')do
   name = params[:artist_name]
   artist = Artist.new({:name=> name, :id=>nil})
   artist.save()
-  @artists = Artists.all()
+  @artists = Artist.all()
   erb(:artists)
 end
 
@@ -83,8 +83,8 @@ end
 
 patch('/artists/:id')do
   @artist = Artist.find(params[:id].to_i())
-  @artist.update(params[:name])
-  @artists = Artists.all
+  @artist.update({:name=> params[:name]})
+  @artists = Artist.all
   erb(:artists)
 end
 
